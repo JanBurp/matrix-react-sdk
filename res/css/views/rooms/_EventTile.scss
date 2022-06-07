@@ -20,6 +20,8 @@ $threadInfoLineHeight: calc(2 * $font-12px); // See: _commons.scss
 
 .mx_EventTile {
     flex-shrink: 0;
+    border:solid 1px #CCC;
+    margin-bottom:1rem;
 
     .mx_EventTile_receiptSent,
     .mx_EventTile_receiptSending {

@@ -128,6 +128,7 @@ export default class ReplyChain extends React.Component<IProps, IState> {
         }
     }
 
+
     private async initialize(): Promise<void> {
         const { parentEv } = this.props;
         // at time of making this component we checked that props.parentEv has a parentEventId
@@ -142,6 +143,13 @@ export default class ReplyChain extends React.Component<IProps, IState> {
                 loadedEv,
                 loading: false,
             });
+
+            let parentEv = await this.getEvent(getParentEventId(loadedEv));
+            while (parentEv) {
+                this.state.events.unshift(parentEv);
+                parentEv = await this.getEvent(getParentEventId(parentEv));
+            }
+
         } else {
             this.setState({ err: true });
         }
@@ -252,7 +260,13 @@ export default class ReplyChain extends React.Component<IProps, IState> {
         }
 
         const { isQuoteExpanded } = this.props;
-        const evTiles = this.state.events.map((ev) => {
+
+        if ( this.state.events.length>0 ) {
+            console.log("--EVENTS",this.state.events.length,this.state.events);
+        }
+
+        const evTiles = this.state.events.map((ev,index) => {
+            const margin = index * 30;
             const classname = classNames({
                 'mx_ReplyChain': true,
                 [this.getReplyChainColorClass(ev)]: true,
@@ -261,8 +275,9 @@ export default class ReplyChain extends React.Component<IProps, IState> {
                 // We don't want to add the class if it's undefined, it should only be expanded/collapsed when it's true/false
                 'mx_ReplyChain--collapsed': isQuoteExpanded === false,
             });
+
             return (
-                <blockquote ref={this.blockquoteRef} className={classname} key={ev.getId()}>
+                <blockquote ref={this.blockquoteRef} className={classname} key={ev.getId()} style={{marginLeft:margin}}>
                     <ReplyTile
                         mxEvent={ev}
                         onHeightChanged={this.props.onHeightChanged}
