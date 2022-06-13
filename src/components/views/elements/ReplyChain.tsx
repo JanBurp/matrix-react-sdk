@@ -144,11 +144,14 @@ export default class ReplyChain extends React.Component<IProps, IState> {
                 loading: false,
             });
 
+
+            // MODIFICATION START: add parents to events
             let parentEv = await this.getEvent(getParentEventId(loadedEv));
             while (parentEv) {
                 this.state.events.unshift(parentEv);
                 parentEv = await this.getEvent(getParentEventId(parentEv));
             }
+            // MODIFICATION END
 
         } else {
             this.setState({ err: true });
@@ -265,6 +268,7 @@ export default class ReplyChain extends React.Component<IProps, IState> {
             console.log("--EVENTS",this.state.events.length,this.state.events);
         }
 
+        // MODIFICATION START: show parents with margin (see var 'margin')
         const evTiles = this.state.events.map((ev,index) => {
             const margin = index * 30;
             const classname = classNames({
@@ -288,6 +292,7 @@ export default class ReplyChain extends React.Component<IProps, IState> {
                 </blockquote>
             );
         });
+        // MODIFICATION END
 
         return <div className="mx_ReplyChain_wrapper">
             <div>{ header }</div>
