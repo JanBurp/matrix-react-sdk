@@ -9,6 +9,22 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=matrix-react-sdk&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=matrix-react-sdk)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=matrix-react-sdk&metric=bugs)](https://sonarcloud.io/summary/new_code?id=matrix-react-sdk)
 
+MULTI THREADING BRANCH
+======================
+
+This fork and branch is a proof of concept to show threading in a multilevel way (like tweakers/reddit etc.).
+Not for distribution / pullrequest or whatever, just of poc if we can use it for www.pubhubs.net
+
+Very small changes are made.
+[JdB]
+
+
+
+
+
+
+
+
 matrix-react-sdk
 ================
 
